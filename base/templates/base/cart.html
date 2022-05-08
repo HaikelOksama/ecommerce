@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Cart{% endblock title %}
+
+{% block content %}
+<section class="inner_page_head">
+    <div class="container_fuild">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <h3>Keranjang Belanja Anda</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end inner page section -->
+<!-- product section -->
+<section class="product_section layout_padding">
+    <div class="container">
+        <div class="row">
+            {% comment %} Product Start {% endcomment %}
+            {% if products %}
+            {% for product in products %}
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="box">
+                    <form action="" method="post">
+                    <div class="option_container">
+                        <div class="options">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete" value="{{product.id}}">
+                            <input type="submit" value="Hapus Dari Keranjang"  class="option2">
+                        </div>
+                    </div>
+                    </form>
+                    <div class="img-box">
+                        <img src="{{product.image.url}}" alt="1">
+                    </div>
+                    <div class="detail-box ">
+                        <h5>
+                            {{product.name}}
+                        </h5>
+                        <br>
+                        <h6 style="color: red;">
+                            IDR.{{product.price}}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-md-12">
+                <div class="full">
+                    <h3>Keranjang Belanja Masih Kosong! <a href="{% url 'product' %}">
+                        Shop Now
+                        </a></h3>
+                   
+                </div>
+                <div class="btn-box ">
+                    
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+
+{% comment %} <h1>Keranjang belanja {{request.user.username}}</h1>
+
+<div class="item-container">
+    {% for product in products %}
+    <div class="item-list">
+        <h4>{{product.name}}</h4>
+        <p>{{product.price}}</p>
+        <a href="{% url 'remove' product.id %}">Hapus</a>
+    </div>
+    {% endfor %}
+</div> {% endcomment %}
+
+
+{% endblock content %}

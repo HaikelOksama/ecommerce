@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- inner page section -->
+<section class="inner_page_head">
+    <div class="container_fuild">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <h3>Product</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end inner page section -->
+<!-- product section -->
+<section class="product_section layout_padding">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Our <span>Collection</span>
+            </h2>
+        </div>
+        <div class="row">
+            {% comment %} Product Start {% endcomment %}
+            {% for product in products %}
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="box">
+                    <form action="" method="post">
+                    <div class="option_container">
+                        <div class="options">
+                            {% csrf_token %}
+                            <input type="hidden" name="add" value="{{product.id}}">
+                            <input type="submit" value="Add to Cart"  class="option2">
+                        </div>
+                    </div>
+                 </form>
+                    <div class="img-box">
+                        <img src="{{product.image.url}}" alt="1">
+                    </div>
+                    <div class="detail-box ">
+                        <h5>
+                            {{product.name}}
+                        </h5>
+                        <br>
+                        <h6 style="color: red;">
+                            IDR.{{product.price}}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+<!-- end product section -->
+{% endblock content %}
